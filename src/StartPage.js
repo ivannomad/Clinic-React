@@ -1,4 +1,4 @@
-export function StartPage() {
+export const StartPage = () => {
   return null;
 }
 

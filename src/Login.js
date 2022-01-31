@@ -1,3 +1,3 @@
-export function Login() {
+export const Login = () => {
   return null;
 }

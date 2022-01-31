@@ -1,17 +1,19 @@
 import './App.css';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
-import {Register} from "./Register";
-import {Login} from "./Login";
-import {StartPage} from "./StartPage";
-import {Home} from "./Home";
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import { Register} from "./Register";
+import { Login } from "./Login";
+import { StartPage } from "./StartPage";
+import { Home } from "./Home";
 
-function App() {
+const App = () => {
   return (
       <Router>
-        <Route path='/' exact={true} element={<StartPage />}/>
-        <Route path='/register' exact={true} element={<Register />}/>
-        <Route path='/login' exact={true} element={<Login />}/>
-        <Route path='/home' exact={true} element={<Home />}/>
+        <Routes>
+          <Route path='/' exact={true} element={<StartPage />}/>
+          <Route path='/register' exact={true} element={<Register />}/>
+          <Route path='/login' exact={true} element={<Login />}/>
+          <Route path='/home' exact={true} element={<Home />}/>
+        </Routes>
       </Router>
   );
 }
