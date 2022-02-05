@@ -1,9 +1,11 @@
 import React, {useState} from "react"
 import {Alert, Button, Container, Form} from "react-bootstrap";
 import AuthService from "../services/AuthService";
-import {Navigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 export const Register = () => {
+    const navigate = useNavigate();
+
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [responseStatus, setResponseStatus] = useState(null)
@@ -12,16 +14,14 @@ export const Register = () => {
         event.preventDefault();
         AuthService.register(email, password)
             .then(res => {
-                localStorage.setItem("accessToken", res.data.accessToken)
-                setResponseStatus(res.status)
+                localStorage.setItem("user", JSON.stringify(res.data));
+
+                navigate('/profile');
+                window.location.reload();
             })
             .catch(error => {
                 setResponseStatus(error.response.status)
             })
-    }
-
-    if (responseStatus === 200) {
-        return <Navigate push to="/home"/>
     }
 
     return (
