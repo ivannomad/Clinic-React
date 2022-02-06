@@ -6,6 +6,7 @@ const saveUser = accessToken => {
     "accessToken": accessToken,
     "userId": decoded["userId"],
     "authorities": decoded["authorities"],
+    "email": decoded["sub"]
   }
   localStorage.setItem("user", JSON.stringify(user))
 }
