@@ -102,8 +102,7 @@ const App = () => {
             <Route path='/register' exact={true} element={<Register />}/>
             <Route path='/login' exact={true} element={<Login />}/>
             <Route path='/home' exact={true} element={<Home />}/>
-            <Route path='/profile' exact={true} element={<Home />}/>
-            <Route path={`/patients/:id/cabinet`} exact={true} element={<BoardPatient />}/>
+            <Route path='/profile' exact={true} element={<BoardPatient />}/>
             <Route path={`/doctor/:id/cabinet`} exact={true} element={<BoardDoctor />}/>
           </Routes>
         </div>
