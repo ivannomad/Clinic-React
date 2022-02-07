@@ -36,6 +36,7 @@ export const Register = () => {
     await AuthService.postRegister(firstName, secondName, contactNumber, birthDate)
         .then(() => {
           navigate('/profile')
+          window.location.reload();
         })
         .catch(error => {
           const resMessage =
