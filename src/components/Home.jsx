@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import UserService from "../services/UserService";
 
-const Home = () => {
+export const Home = () => {
   const [content, setContent] = useState("");
 
   useEffect(() => {
@@ -27,4 +27,3 @@ const Home = () => {
       </div>
   );
 };
-export default Home;
