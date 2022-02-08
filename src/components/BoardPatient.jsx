@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
-
-import UserService from "../services/UserService";
 import AuthService from "../services/AuthService";
+import ResourceService from "../services/ResourceService";
 import {Button} from "react-bootstrap";
 import axios from "axios";
 import authHeader from "../services/AuthHeader";
@@ -18,7 +17,7 @@ export const BoardPatient = () => {
   const [newContactNumber, setNewContactNumber] = useState("");
 
   useEffect(async () => {
-        await UserService.getPatientBoard()
+        await ResourceService().getPatientById()
             .then(res => {
               setFirstName(res.data.firstName);
               setSecondName(res.data.secondName);
