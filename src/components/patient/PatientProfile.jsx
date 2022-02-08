@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import AuthService from "../services/AuthService";
-import ResourceService from "../services/ResourceService";
-import {Button} from "react-bootstrap";
+import AuthService from "../../services/AuthService";
+import ResourceService from "../../services/ResourceService";
+import {Alert, Button} from "react-bootstrap";
 import axios from "axios";
-import authHeader from "../services/AuthHeader";
+import authHeader from "../../services/AuthHeader";
 
-export const BoardPatient = () => {
+export const PatientProfile = () => {
   const currentUser = AuthService.getCurrentUser();
 
   const [firstName, setFirstName] = useState("");
@@ -14,7 +14,9 @@ export const BoardPatient = () => {
   const [birthDate, setBirthDate] = useState("");
 
   const [editMode, setEditMode] = useState(false);
+
   const [newContactNumber, setNewContactNumber] = useState("");
+  const [contactNumberException, setContactNumberException] = useState(false);
 
   useEffect(async () => {
         await ResourceService().getPatientById()
@@ -33,11 +35,17 @@ export const BoardPatient = () => {
 
   const handleEditModeTrue = e => {
     e.preventDefault();
+    setContactNumberException(false)
     setEditMode(true)
   };
 
   const handleEditModeFalse = async e => {
     e.preventDefault();
+    const re = new RegExp("^(?:\\+38)?(0\\d{9})$")
+    if (!newContactNumber || !re.test(newContactNumber)) {
+      setContactNumberException(true)
+      return;
+    }
     await axios
         .put("http://localhost:8080/patients/" + AuthService.getCurrentUser().userId, {
           'id': AuthService.getCurrentUser().userId,
@@ -70,7 +78,7 @@ export const BoardPatient = () => {
                   <div className="d-flex flex-column align-items-center text-center">
                     <img src="https://cdn.icon-icons.com/icons2/2265/PNG/512/patient_coronavirus_icon_140453.png"
                          alt="Patient" className="rounded-circle"
-                         width="150"/>
+                         width="275"/>
                     <div className="mt-3">
                       <h4>{firstName + " " + secondName}</h4>
                     </div>
@@ -78,8 +86,8 @@ export const BoardPatient = () => {
                 </div>
               </div>
             </div>
-            <div className="col-md-8">
-              <div className="card mb-3">
+            <div className="col-md-6">
+              <div className="card mb-1">
                 <div className="card-body">
                   <div className="row">
                     <div className="col-sm-3">
@@ -96,9 +104,14 @@ export const BoardPatient = () => {
                     </div>
                     {editMode ? (
                         <div className="col-sm-9 text-secondary">
-                          <input type="text" className="form-control"
-                                 value={newContactNumber ? newContactNumber : contactNumber}
+                          <input type="tel" className="form-control"
                                  onChange={event => setNewContactNumber(event.target.value)}/>
+                          {contactNumberException && (
+                              <Alert className="mt-3" variant="danger">
+                                Invalid phone number.
+                                Correct format: +380XXXXXXX
+                              </Alert>
+                          )}
                         </div>
                     ) : (
                         <div className="col-sm-9 text-secondary">

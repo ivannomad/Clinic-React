@@ -1,5 +1,5 @@
 import React, {useState} from "react"
-import {Alert, Button, Container, FloatingLabel, Form} from "react-bootstrap";
+import {Alert, Button, Container, FloatingLabel, Form, InputGroup} from "react-bootstrap";
 import AuthService from "../services/AuthService";
 import {useNavigate} from 'react-router-dom';
 
@@ -33,7 +33,7 @@ export const Register = () => {
           setMessage(resMessage);
         })
 
-    await AuthService.postRegister(firstName, secondName, contactNumber, birthDate)
+    await AuthService.postRegister(firstName, secondName, "+380" + contactNumber, birthDate)
         .then(() => {
           navigate('/profile')
           window.location.reload();
@@ -52,7 +52,7 @@ export const Register = () => {
 
   return (
       <Container id="auth-container" className="d-grid h-100">
-        <Form id="auth-form" className="text-center p-3 w-100" onSubmit={handleSubmit}>
+        <Form id="auth-form" className="text-center p-3 w-125" onSubmit={handleSubmit}>
           <h1 className="mb-3 fs-3 fw-normal">Please sign up</h1>
           <FloatingLabel label="Email address" className="mb-2">
             <Form.Control required type="email" placeholder="Email address"
@@ -70,13 +70,16 @@ export const Register = () => {
             <Form.Control required type="text" placeholder="Second Name"
                           onChange={event => setSecondName(event.target.value)}/>
           </FloatingLabel>
-          <FloatingLabel label="Contact Number" className="mb-2">
-            <Form.Control required type="text" placeholder="Contact Number"
-                          onChange={event => setContactNumber(event.target.value)}/>
-          </FloatingLabel>
+          <InputGroup className="mb-2">
+            <InputGroup.Text>+380</InputGroup.Text>
+            <FloatingLabel label="Contact Number">
+              <Form.Control required type="tel" placeholder="Contact Number"
+                            onChange={event => setContactNumber(event.target.value)}/>
+            </FloatingLabel>
+          </InputGroup>
           <FloatingLabel label="Birth Date" className="mb-2">
             <Form.Control required type="date" placeholder="Birth Date"
-                           onChange={event => setBirthDate(event.target.value)}/>
+                          onChange={event => setBirthDate(event.target.value)}/>
           </FloatingLabel>
           <div className="d-grid">
             <Button className="mb-3" variant="primary" size="lg" type="submit">
