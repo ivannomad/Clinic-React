@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-
-import UserService from "../services/UserService";
+import ResourceService from "../services/ResourceService";
 
 export const BoardDoctor = () => {
   const [content, setContent] = useState('');
 
   useEffect(() => {
-    UserService.getDoctorBoard().then(
+    ResourceService().getPatientById().then(
         res => setContent(res.data),
         error => {
           const _content =
