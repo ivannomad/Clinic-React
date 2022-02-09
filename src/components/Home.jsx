@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from "react";
 import DoctorEntityList from "./doctor/DoctorEntityList";
-import ResourceService from "../services/ResourceService";
+import DoctorService from "./doctor/DoctorService";
 
 export const Home = () => {
 
   const [doctors, setDoctors] = useState([]);
 
   useEffect(() => {
-    ResourceService().getAllDoctors()
+    DoctorService().getAllDoctors()
         .then(result => {
           setDoctors(result.data);
         }).catch(exception => {
