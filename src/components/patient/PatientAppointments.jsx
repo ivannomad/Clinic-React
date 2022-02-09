@@ -9,11 +9,14 @@ export const PatientAppointments = () => {
     PatientService.getPatientAppointments()
         .then(res => setAppointments(res.data))
         .catch(error => console.log(error))
-  }, [appointments])
+  }, [])
 
   const handleButton = async e => {
     e.preventDefault();
     await PatientService.cancelPatientAppointment(e.target.value)
+    await PatientService.getPatientAppointments()
+        .then(res => setAppointments(res.data))
+        .catch(error => console.log(error))
   };
 
   return (
