@@ -9,7 +9,7 @@ export const PatientCard = () => {
         <div className="card">
           <div className="card-body">
             <div className="d-flex flex-column align-items-center text-center">
-              <img src="https://cdn.icon-icons.com/icons2/2265/PNG/512/patient_coronavirus_icon_140453.png"
+              <img src={require("../../assets/images/patient.png")}
                    alt="Patient" className="rounded-circle"
                    width="213"/>
               <div className="mt-3">
