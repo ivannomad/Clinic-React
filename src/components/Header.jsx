@@ -32,7 +32,7 @@ export const Header = () => {
             <Navbar.Brand>
               <img
                   alt=""
-                  src="https://cdn-icons-png.flaticon.com/512/1029/1029993.png"
+                  src={require("../assets/images/heart.png")}
                   width="30"
                   height="30"
                   className="d-inline-block align-top"
