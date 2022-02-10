@@ -27,21 +27,19 @@ export const PatientAppointments = () => {
                 <Card bg={"light"}>
                   <Card.Body>
                     <Card.Title>Appointment</Card.Title>
-                    <Card.Text>
-                      <div className="mt-2">
-                        <strong>Doctor: </strong> {appointment.doctor.firstName + " " + appointment.doctor.secondName}
-                      </div>
-                      <div className="mt-2">
-                        <strong>Date: </strong> {new Date(appointment.dateAndTime).toLocaleDateString()}
-                      </div>
-                      <div className="mt-2">
-                        <strong>Time: </strong> {new Date(appointment.dateAndTime).toLocaleTimeString()}
-                      </div>
-                      <div className="mt-2">
-                        <Button variant={"danger"} value={appointment.id}
-                                onClick={handleButton}>Cancel</Button>
-                      </div>
-                    </Card.Text>
+                    <div className="mt-2">
+                      <strong>Doctor: </strong> {appointment.doctor.firstName + " " + appointment.doctor.secondName}
+                    </div>
+                    <div className="mt-2">
+                      <strong>Date: </strong> {new Date(appointment.dateAndTime).toLocaleDateString()}
+                    </div>
+                    <div className="mt-2">
+                      <strong>Time: </strong> {new Date(appointment.dateAndTime).toLocaleTimeString()}
+                    </div>
+                    <div className="mt-2">
+                      <Button variant={"danger"} value={appointment.id}
+                              onClick={handleButton}>Cancel</Button>
+                    </div>
                   </Card.Body>
                 </Card>
               </Col>

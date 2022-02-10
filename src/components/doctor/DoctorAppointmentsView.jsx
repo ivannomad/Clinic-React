@@ -1,7 +1,7 @@
-import {Card, Col, Row} from "react-bootstrap";
+import {Button, Card, Col, Row} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
 
-export const DoctorAppointmentsView = ({appointments, free}) => {
+export const DoctorAppointmentsView = ({appointments, free, onClickCancelAppointment}) => {
   const [border, setBorder] = useState('')
 
   useEffect(() => {
@@ -19,7 +19,6 @@ export const DoctorAppointmentsView = ({appointments, free}) => {
               <Card border={border} bg={"light"} className="mb-2">
                 <Card.Body>
                   <Card.Title>Appointment</Card.Title>
-                  <Card.Text>
                     <div className="mt-2">
                       <strong>Doctor: </strong> {appointment.doctor.firstName + " " + appointment.doctor.secondName}
                     </div>
@@ -34,7 +33,10 @@ export const DoctorAppointmentsView = ({appointments, free}) => {
                     <div className="mt-2">
                       <strong>Time: </strong> {new Date(appointment.dateAndTime).toLocaleTimeString()}
                     </div>
-                  </Card.Text>
+                    <div className="mt-2">
+                      <Button variant={"danger"} value={appointment.id}
+                              onClick={onClickCancelAppointment}>Cancel</Button>
+                    </div>
                 </Card.Body>
               </Card>
             </Col>
