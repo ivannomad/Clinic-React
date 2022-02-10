@@ -8,7 +8,9 @@ export const DoctorFreeAppointments = ({appointments, onClickCancelAppointment})
         <Card>
           <Card.Body>
             <Card.Title>Free Appointments:</Card.Title>
-            <DoctorAppointmentsView appointments={appointments} onClickCancelAppointment={onClickCancelAppointment} free={true}/>
+            <DoctorAppointmentsView appointments={appointments} free={true}
+                                    onClickCancelAppointment={onClickCancelAppointment}
+            />
           </Card.Body>
         </Card>
       </Col>
