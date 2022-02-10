@@ -19,6 +19,7 @@ export const DoctorProfile = () => {
   const onSubmitCreateAppointment = async e => {
     e.preventDefault();
     e.target.reset();
+    console.log(new Date().toISOString().split('T')[1]);
     await DoctorService().createDoctorAppointment(date + "T" + time)
         .catch(error => console.log(error))
   }
@@ -46,9 +47,9 @@ export const DoctorProfile = () => {
                 <Container id="auth-container" className="d-grid">
                   <Form onSubmit={onSubmitCreateAppointment}>
                     <h4 className="text-center mt-3 mb-3">Add new appointment</h4>
-                    <Form.Control type="date" min="2022-02-10" className="text-center p-2 w-125 mb-3"
+                    <Form.Control type="date" min={new Date().toISOString().split('T')[0]} className="text-center p-2 w-125 mb-3"
                                   onChange={event => setDate(event.target.value)}/>
-                    <Form.Control type="time" className="text-center p-2 w-125 mb-3"
+                    <Form.Control type="time" className="text-center p-2 w-125 mb-3" min={new Date().toISOString().split('T')[1]}
                                   onChange={event => setTime(event.target.value)}/>
                     <div className="d-grid">
                       <Button type="submit">
