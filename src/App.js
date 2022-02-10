@@ -9,6 +9,7 @@ import {Profile} from "./components/profile/Profile";
 import {Container} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import AuthService from "./services/AuthService";
+import {DoctorSchedule} from "./components/doctor/DoctorSchedule";
 
 const App = () => {
 
@@ -36,6 +37,7 @@ const App = () => {
             <Route path='/login' exact={true} element={<Login/>}/>
             <Route path='/home' exact={true} element={<Home/>}/>
             <Route path='/profile' exact={true} element={<Profile/>}/>
+            <Route path='/doctors/:id/schedule' exact={true} element={<DoctorSchedule id="id"/>}/>
           </Routes>
         </Container>
       </Router>
