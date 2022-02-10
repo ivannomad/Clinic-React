@@ -44,8 +44,9 @@ const resources = {
         {
           params: {free: false},
           headers: authHeader()
-        }
-    )
+        }).then(res => res.data.sort((a, b) => {
+      return new Date(a.dateAndTime) - new Date(b.dateAndTime);
+    }))
   },
 
   getAllDoctorAppointments: doctorId => {

@@ -8,7 +8,8 @@ import {DoctorBusyAppointments} from "./DoctorBusyAppointments";
 
 export const DoctorProfile = () => {
   const [appointmentMode, setAppointmentMode] = useState(false);
-  const [appointments, setAppointments] = useState([]);
+  const [freeAppointments, setFreeAppointments] = useState([]);
+  const [busyAppointments, setBusyAppointments] = useState([]);
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [appointmentException, setAppointmentException] = useState(false);
@@ -52,10 +53,13 @@ export const DoctorProfile = () => {
 
   const updateAppointments = () => {
     DoctorService().getFreeDoctorAppointments()
-        .then(res => setAppointments(res))
+        .then(res => setFreeAppointments(res))
         .catch(error => console.log(error))
-  }
+    DoctorService().getBusyDoctorAppointments()
+        .then(res => setBusyAppointments(res))
+        .catch(error => console.log(error))
 
+  }
 
   return (
       <Container className="container mt-3">
@@ -102,8 +106,8 @@ export const DoctorProfile = () => {
           )}
         </Row>
         <Row xs={2}>
-          <DoctorFreeAppointments appointments={appointments} onClickCancelAppointment={onClickCancelAppointment}/>
-          <DoctorBusyAppointments/>
+          <DoctorFreeAppointments appointments={freeAppointments} onClickCancelAppointment={onClickCancelAppointment}/>
+          <DoctorBusyAppointments appointments={busyAppointments} onClickCancelAppointment={onClickCancelAppointment}/>
         </Row>
       </Container>
   );
