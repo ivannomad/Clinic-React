@@ -1,5 +1,6 @@
 import React from 'react';
 import {useNavigate} from "react-router-dom";
+import {Button} from "react-bootstrap";
 
 const DoctorEntity = ({doctor, number, id}) => {
 
@@ -15,7 +16,7 @@ const DoctorEntity = ({doctor, number, id}) => {
         <th scope="row">{id}</th>
         <td colSpan="2">{doctor.firstName + " " + doctor.secondName}</td>
         <td>{doctor.contactNumber}</td>
-        <td><button type="button" className="btn btn-primary" onClick={routeChange}>Schedule</button></td>
+        <td><Button variant="primary" onClick={routeChange}>Schedule</Button></td>
       </tr>
 /*
       <li className="list-group-item">
