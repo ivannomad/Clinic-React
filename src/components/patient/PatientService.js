@@ -32,6 +32,14 @@ const getPatientAppointments = () => {
       {headers: authHeader()})
 }
 
+const makePatientAppointment = (appId) => {
+  return axios.post(
+      API_URL + user.userId + `/appointments/${appId}`,
+      {},
+      {headers: authHeader()}
+  )
+}
+
 const cancelPatientAppointment = (appId) => {
   return axios.delete(
       API_URL + user.userId + `/appointments/${appId}/cancel`,
@@ -42,6 +50,7 @@ const PatientService = {
   getPatientById,
   updatePatientById,
   getPatientAppointments,
+  makePatientAppointment,
   cancelPatientAppointment
 }
 

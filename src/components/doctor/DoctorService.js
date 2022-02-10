@@ -48,6 +48,13 @@ const resources = {
     )
   },
 
+  getAllDoctorAppointments: doctorId => {
+    return axios.get(API_URL + `/${doctorId}/appointments/all`)
+        .then(res => res.data.sort((a, b) => {
+          return new Date(a.dateAndTime) - new Date(b.dateAndTime);
+        }));
+  },
+
   deleteAppointment: (appId) => {
     return axios.delete(
         API_URL + `/${user.userId}/appointments/${appId}/cancel`,
