@@ -33,8 +33,9 @@ const resources = {
         {
           params: {free: true},
           headers: authHeader()
-        }
-    )
+        }).then(res => res.data.sort((a, b) => {
+      return new Date(a.dateAndTime) - new Date(b.dateAndTime);
+    }))
   },
 
   getBusyDoctorAppointments: () => {
@@ -45,6 +46,12 @@ const resources = {
           headers: authHeader()
         }
     )
+  },
+
+  deleteAppointment: (appId) => {
+    return axios.delete(
+        API_URL + `/${user.userId}/appointments/${appId}/cancel`,
+        {headers: authHeader()})
   }
 
 };
