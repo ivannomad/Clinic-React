@@ -4,24 +4,18 @@ import {Button, Container, Nav, Navbar} from "react-bootstrap";
 import {LinkContainer} from 'react-router-bootstrap'
 
 export const Header = () => {
-  const [currentUser, setCurrentUser] = useState(undefined);
-  const [showPatientBoard, setPatientBoard] = useState(false);
-  const [showDoctorBoard, setDoctorBoard] = useState(false);
+  const [currentUser, setCurrentUser] = useState({});
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
 
     if (user) {
       setCurrentUser(user);
-      setPatientBoard(user.authorities.includes('ROLE_PATIENT'));
-      setDoctorBoard(user.authorities.includes('ROLE_DOCTOR'));
     }
   }, []);
 
   const handleLogOut = () => {
     AuthService.logout();
-    setPatientBoard(false);
-    setDoctorBoard(false);
     setCurrentUser(undefined);
   }
 
@@ -30,56 +24,35 @@ export const Header = () => {
         <Container>
           <LinkContainer to="/home">
             <Navbar.Brand>
-              <img
-                  alt=""
-                  src={require("../assets/images/heart.png")}
-                  width="30"
-                  height="30"
-                  className="d-inline-block align-top"
-              />{' '}
+              <img alt="" src={require("../assets/images/heart.png")}
+                   width="30" height="30" className="d-inline-block align-top"/>
+              {' '}
               <b>Clinic</b>
             </Navbar.Brand>
           </LinkContainer>
-
-          <Nav
-              className="me-auto my-2 my-lg-0"
-              style={{maxHeight: '100px'}}
-              navbarScroll
-          >
+          <Nav className="me-auto my-2 my-lg-0" style={{maxHeight: '100px'}} navbarScroll>
             <LinkContainer to="/home">
               <Nav.Link>Home</Nav.Link>
             </LinkContainer>
 
-            {currentUser && showPatientBoard && (
+            {currentUser && (
                 <Nav>
                   <LinkContainer to="/profile">
                     <Nav.Link>Profile</Nav.Link>
                   </LinkContainer>
                 </Nav>
             )}
-
-            {currentUser && showDoctorBoard && (
-                <Nav>
-                  <Nav.Link href='/doctors/profile'>Profile</Nav.Link>
-                  <Nav.Link href={`/doctors/${currentUser.userId}/schedule`}>Appointments</Nav.Link>
-                </Nav>
-            )}
           </Nav>
-
           {currentUser ? (
               <LinkContainer to="/login">
-                <Button variant="warning"
-                        onClick={handleLogOut}
-                >
+                <Button variant="warning" onClick={handleLogOut}>
                   Sign Out
                 </Button>
               </LinkContainer>
           ) : (
               <Nav>
                 <LinkContainer to="/login">
-                  <Button className="me-2"
-                          variant="outline-primary"
-                  >
+                  <Button className="me-2" variant="outline-primary">
                     Sign In
                   </Button>
                 </LinkContainer>
