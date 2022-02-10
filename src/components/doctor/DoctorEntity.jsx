@@ -4,11 +4,10 @@ import {Button} from "react-bootstrap";
 
 const DoctorEntity = ({doctor, number, id}) => {
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const routeChange = () => {
-    let path = `/doctors/schedule`;
-    // let path = `/doctors/${id}/schedule`;
-    navigate(path, {state: {doctorId: id}});
+    const path = `/doctors/${id}/schedule`;
+    navigate(path, {state: {doctorId: id, doctor: doctor}});
   }
 
   return (
