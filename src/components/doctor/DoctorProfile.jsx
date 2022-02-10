@@ -12,6 +12,7 @@ export const DoctorProfile = () => {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [appointmentException, setAppointmentException] = useState(false);
+  const [created, setCreated] = useState(false)
 
   useEffect(() => {
     updateAppointments();
@@ -22,16 +23,25 @@ export const DoctorProfile = () => {
     setDate("")
     setTime("")
     setAppointmentMode(!appointmentMode)
+    setCreated(false)
+    setAppointmentException(false)
   }
 
   const onSubmitCreateAppointment = async e => {
     e.preventDefault();
-    e.target.reset();
     await DoctorService().createDoctorAppointment(date + "T" + time)
-        .catch(() => setAppointmentException(true))
+        .then(() => {
+          setCreated(true)
+          setAppointmentException(false)
+        })
+        .catch(() => {
+          setCreated(false)
+          setAppointmentException(true)
+        })
     await updateAppointments();
     setDate("")
     setTime("")
+    e.target.reset();
   }
 
   const onClickCancelAppointment = async e => {
@@ -56,7 +66,7 @@ export const DoctorProfile = () => {
             <Card className="mt-2">
               <Card.Body className="card-body align-items-center d-flex justify-content-center">
                 <Button variant={appointmentMode ? "danger" : "primary"} onClick={onClickSetAppointmentMode}>
-                  <span>{appointmentMode ? "Stop" : "Add new appointment"}</span>
+                  <span>{appointmentMode ? "Stop editing" : "Edit schedule"}</span>
                 </Button>
               </Card.Body>
             </Card>
@@ -65,20 +75,25 @@ export const DoctorProfile = () => {
               <Card border="dark" className="mb-3 mt-sm-3 mt-lg-0">
                 <Container id="auth-container" className="d-grid">
                   <Form onSubmit={onSubmitCreateAppointment}>
-                    <h4 className="text-center mt-3 mb-3">Add new appointment</h4>
+                    <h4 className="text-center mt-3 mb-3">Add free appointment</h4>
                     <Form.Control type="date" min={new Date().toISOString().split('T')[0]}
                                   className="text-center p-2 w-125 mb-3"
-                                  onChange={event => setDate(event.target.value)}/>
+                                  onBlur={event => setDate(event.target.value)}/>
                     <Form.Control type="time" className="text-center p-2 w-125 mb-3"
-                                  onChange={event => setTime(event.target.value)}/>
+                                  onBlur={event => setTime(event.target.value)}/>
                     <div className="d-grid">
                       <Button type="submit" disabled={!date || !time}>
                         Create
                       </Button>
                     </div>
                     {appointmentException && (
-                        <Alert variant={"danger"} className="mt-2">
+                        <Alert variant={"danger"} className="mt-2 text-center">
                           This slot is busy
+                        </Alert>
+                    )}
+                    {created && (
+                        <Alert variant={"success"} className="mt-2 text-center">
+                          Created
                         </Alert>
                     )}
                   </Form>
